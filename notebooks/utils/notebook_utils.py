@@ -749,3 +749,15 @@ def check_openvino_version(version: str) -> bool:
     else:
         return True
 
+
+class VideoOutput:
+    def __init__(self, file_name, frame_width=1024, frame_height=768):
+        self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        self.frame_width = frame_width
+        self.frame_height = frame_height
+        self.out_writer = cv2.VideoWriter(file_name, self.fourcc, 20.0, (frame_width, frame_height))
+
+    def write_frame(self, img_frame):
+        dim = (self.frame_width, self.frame_height)
+        resized = cv2.resize(img_frame, dim)
+        self.out_writer.write(resized)
