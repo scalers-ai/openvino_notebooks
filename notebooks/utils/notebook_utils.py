@@ -761,3 +761,6 @@ class VideoOutput:
         dim = (self.frame_width, self.frame_height)
         resized = cv2.resize(img_frame, dim)
         self.out_writer.write(resized)
+
+    def close(self):
+        self.out_writer.release()
